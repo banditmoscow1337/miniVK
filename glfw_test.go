@@ -58,10 +58,6 @@ func TestAllGlfwFunctionsBound(t *testing.T) {
 }
 
 func TestWindowLifecycleAndAllCallbacks(t *testing.T) {
-	if runtime.GOOS == "linux" {
-		// SetLinuxBackend("headless")
-		// defer SetLinuxBackend("auto")
-	}
 	if GlfwInit() != GLFW_TRUE {
 		t.Fatalf("GlfwInit failed: %v", LastGLFWError("GlfwInit"))
 	}
