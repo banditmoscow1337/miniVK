@@ -8,3 +8,7 @@ var (
 	GlfwSetWindowFocusCallback func(uintptr, uintptr) uintptr
 	GlfwInitVulkanLoader       func(uintptr)
 )
+
+func bindExtraGlfwFunctions() {
+	GlfwSetScrollCallback = nativeGlfwSetScrollCallbackPtr
+}
