@@ -904,77 +904,103 @@ func cocoaMods(flags uintptr) int {
 	return mods
 }
 
+// macKeyCodes maps Cocoa virtual key codes using GLFW's US ANSI key positions.
+var macKeyCodes = [...]int{
+	0x00: GLFW_KEY_A,
+	0x01: GLFW_KEY_S,
+	0x02: GLFW_KEY_D,
+	0x03: GLFW_KEY_F,
+	0x04: GLFW_KEY_H,
+	0x05: GLFW_KEY_G,
+	0x06: GLFW_KEY_Z,
+	0x07: GLFW_KEY_X,
+	0x08: GLFW_KEY_C,
+	0x09: GLFW_KEY_V,
+	0x0B: GLFW_KEY_B,
+	0x0C: GLFW_KEY_Q,
+	0x0D: GLFW_KEY_W,
+	0x0E: GLFW_KEY_E,
+	0x0F: GLFW_KEY_R,
+	0x10: GLFW_KEY_Y,
+	0x11: GLFW_KEY_T,
+	0x12: GLFW_KEY_1,
+	0x13: GLFW_KEY_2,
+	0x14: GLFW_KEY_3,
+	0x15: GLFW_KEY_4,
+	0x16: GLFW_KEY_6,
+	0x17: GLFW_KEY_5,
+	0x18: GLFW_KEY_EQUAL,
+	0x19: GLFW_KEY_9,
+	0x1A: GLFW_KEY_7,
+	0x1B: GLFW_KEY_MINUS,
+	0x1C: GLFW_KEY_8,
+	0x1D: GLFW_KEY_0,
+	0x1E: GLFW_KEY_RIGHT_BRACKET,
+	0x1F: GLFW_KEY_O,
+	0x20: GLFW_KEY_U,
+	0x21: GLFW_KEY_LEFT_BRACKET,
+	0x22: GLFW_KEY_I,
+	0x23: GLFW_KEY_P,
+	0x24: GLFW_KEY_ENTER,
+	0x25: GLFW_KEY_L,
+	0x26: GLFW_KEY_J,
+	0x27: GLFW_KEY_APOSTROPHE,
+	0x28: GLFW_KEY_K,
+	0x29: GLFW_KEY_SEMICOLON,
+	0x2A: GLFW_KEY_BACKSLASH,
+	0x2B: GLFW_KEY_COMMA,
+	0x2C: GLFW_KEY_SLASH,
+	0x2D: GLFW_KEY_N,
+	0x2E: GLFW_KEY_M,
+	0x2F: GLFW_KEY_PERIOD,
+	0x30: GLFW_KEY_TAB,
+	0x31: GLFW_KEY_SPACE,
+	0x32: GLFW_KEY_GRAVE_ACCENT,
+	0x33: GLFW_KEY_BACKSPACE,
+	0x35: GLFW_KEY_ESCAPE,
+	0x36: GLFW_KEY_RIGHT_SUPER,
+	0x37: GLFW_KEY_LEFT_SUPER,
+	0x38: GLFW_KEY_LEFT_SHIFT,
+	0x39: GLFW_KEY_CAPS_LOCK,
+	0x3A: GLFW_KEY_LEFT_ALT,
+	0x3B: GLFW_KEY_LEFT_CONTROL,
+	0x3C: GLFW_KEY_RIGHT_SHIFT,
+	0x3D: GLFW_KEY_RIGHT_ALT,
+	0x3E: GLFW_KEY_RIGHT_CONTROL,
+	0x47: GLFW_KEY_NUM_LOCK,
+	0x60: GLFW_KEY_F5,
+	0x61: GLFW_KEY_F6,
+	0x62: GLFW_KEY_F7,
+	0x63: GLFW_KEY_F3,
+	0x64: GLFW_KEY_F8,
+	0x65: GLFW_KEY_F9,
+	0x67: GLFW_KEY_F11,
+	0x69: GLFW_KEY_PRINT_SCREEN,
+	0x6D: GLFW_KEY_F10,
+	0x6E: GLFW_KEY_MENU,
+	0x6F: GLFW_KEY_F12,
+	0x72: GLFW_KEY_INSERT,
+	0x73: GLFW_KEY_HOME,
+	0x74: GLFW_KEY_PAGE_UP,
+	0x75: GLFW_KEY_DELETE,
+	0x76: GLFW_KEY_F4,
+	0x77: GLFW_KEY_END,
+	0x78: GLFW_KEY_F2,
+	0x79: GLFW_KEY_PAGE_DOWN,
+	0x7A: GLFW_KEY_F1,
+	0x7B: GLFW_KEY_LEFT,
+	0x7C: GLFW_KEY_RIGHT,
+	0x7D: GLFW_KEY_DOWN,
+	0x7E: GLFW_KEY_UP,
+}
+
 func translateMacKey(keyCode uint16) int {
-	switch keyCode {
-	case 0x00:
-		return GLFW_KEY_A
-	case 0x01:
-		return GLFW_KEY_S
-	case 0x02:
-		return GLFW_KEY_D
-	case 0x03:
-		return GLFW_KEY_F
-	case 0x06:
-		return GLFW_KEY_Z
-	case 0x0C:
-		return GLFW_KEY_Q
-	case 0x0D:
-		return GLFW_KEY_W
-	case 0x0E:
-		return GLFW_KEY_E
-	case 0x0F:
-		return GLFW_KEY_R
-	case 0x10:
-		return GLFW_KEY_Y
-	case 0x24:
-		return GLFW_KEY_ENTER
-	case 0x30:
-		return GLFW_KEY_TAB
-	case 0x31:
-		return GLFW_KEY_SPACE
-	case 0x33:
-		return GLFW_KEY_BACKSPACE
-	case 0x35:
-		return GLFW_KEY_ESCAPE
-	case 0x36:
-		return GLFW_KEY_RIGHT_SUPER
-	case 0x37:
-		return GLFW_KEY_LEFT_SUPER
-	case 0x38:
-		return GLFW_KEY_LEFT_SHIFT
-	case 0x3A:
-		return GLFW_KEY_LEFT_ALT
-	case 0x3B:
-		return GLFW_KEY_LEFT_CONTROL
-	case 0x3C:
-		return GLFW_KEY_RIGHT_SHIFT
-	case 0x3D:
-		return GLFW_KEY_RIGHT_ALT
-	case 0x3E:
-		return GLFW_KEY_RIGHT_CONTROL
-	case 0x60:
-		return GLFW_KEY_F5
-	case 0x61:
-		return GLFW_KEY_F6
-	case 0x64:
-		return GLFW_KEY_F8
-	case 0x73:
-		return GLFW_KEY_HOME
-	case 0x75:
-		return GLFW_KEY_DELETE
-	case 0x77:
-		return GLFW_KEY_END
-	case 0x7B:
-		return GLFW_KEY_LEFT
-	case 0x7C:
-		return GLFW_KEY_RIGHT
-	case 0x7D:
-		return GLFW_KEY_DOWN
-	case 0x7E:
-		return GLFW_KEY_UP
-	default:
-		return GLFW_KEY_UNKNOWN
+	if int(keyCode) < len(macKeyCodes) {
+		if key := macKeyCodes[keyCode]; key != 0 {
+			return key
+		}
 	}
+	return GLFW_KEY_UNKNOWN
 }
 
 func handleCocoaEvent(ev uintptr) uintptr {
